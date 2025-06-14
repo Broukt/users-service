@@ -10,19 +10,11 @@ message User {
   string lastName = 3;
   string email = 4;
   string role = 5;
-  bool isActive = 6;
-  string createdAt = 7;
-  string updatedAt = 8;
+  string createdAt = 6;
+  string updatedAt = 7;
+  string deletedAt = 8;
 }
 
-message CreateUserRequest {
-  string name = 1;
-  string lastName = 2;
-  string email = 3;
-  string password = 4;
-  string confirmPassword = 5;
-  string role = 6;
-}
 message UserResponse { User user = 1; }
 
 message GetUserRequest { string id = 1; }
@@ -43,8 +35,7 @@ message ListUsersRequest {
 }
 message ListUsersResponse { repeated User users = 1; }
 
-service UserService {
-  rpc CreateUser(CreateUserRequest) returns (UserResponse);
+service Users {
   rpc GetUser(GetUserRequest) returns (UserResponse);
   rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
   rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
