@@ -3,10 +3,23 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed:users": "node src/database/seed.js",
+    "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jairo Calcina",
   "license": "ISC",
-  "description": ""
+  "description": "Users service for the application Streamflow that provides user management functionalities.",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.13.3",
+    "@grpc/proto-loader": "^0.7.15",
+    "@prisma/client": "^6.9.0",
+    "amqplib": "^0.10.8",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.5.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.9.0"
+  }
 }
