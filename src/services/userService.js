@@ -1,7 +1,11 @@
 const { catchGrpc } = require("../utils/catchGrpc");
 const AppError = require("../utils/appError");
 const prisma = require("../database/prisma");
-const { publishUserUpdated, publishUserDeleted } = require("../rabbitmq/publisher");
+const {
+  publishUserUpdated,
+  publishUserDeleted,
+} = require("../rabbitmq/publisher");
+const { validate } = require("../validators/userValidatorsSchemas");
 
 const GetUser = catchGrpc(async (call, callback) => {
   const { id } = call.request;
