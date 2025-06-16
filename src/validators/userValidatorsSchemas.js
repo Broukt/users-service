@@ -1,10 +1,11 @@
 const { z } = require("zod");
-const AppError = require("./appError");
+const AppError = require("../utils/appError");
 
 const updateUserSchema = z
   .object({
-    name: z.string().min(2).optional(),
-    lastName: z.string().min(2).optional(),
+    id: z.string().uuid().min(1, "ID is required"),
+    name: z.string().optional(),
+    lastName: z.string().optional(),
     email: z.string().email().optional(),
   })
   .refine((data) => Object.keys(data).length > 0, {
