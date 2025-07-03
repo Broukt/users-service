@@ -2,42 +2,94 @@ syntax = "proto3";
 
 package users;
 
-import "google/protobuf/empty.proto";
-
 message User {
   string id = 1;
   string name = 2;
   string lastName = 3;
   string email = 4;
-  string role = 5;
+  Role role = 5;
   string createdAt = 6;
   string updatedAt = 7;
   string deletedAt = 8;
 }
 
-message UserResponse { User user = 1; }
+message Role {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+}
 
-message GetUserRequest { string id = 1; }
+message CreateUserRequest {
+  string name = 1;
+  string lastName = 2;
+  string email = 3;
+  string password = 4;
+  string role = 5;
+  string token = 6;
+}
+
+message CreateUserResponse {
+  int32 status = 1;
+  User data = 2;
+}
+
+message GetUserRequest {
+  string id = 1;
+  string requestorId = 2;
+  string requestorRole = 3;
+}
+
+message GetUserResponse {
+  int32 status = 1;
+  User data = 2;
+}
 
 message UpdateUserRequest {
   string id = 1;
   string name = 2;
   string lastName = 3;
   string email = 4;
+  string requestorId = 5;
+  string requestorRole = 6;
 }
 
-message DeleteUserRequest { string id = 1; }
+message UpdateUserResponse {
+  int32 status = 1;
+  User data = 2;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+  string requestorRole = 2;
+}
+
+message DeleteUserResponse { int32 status = 1; }
 
 message ListUsersRequest {
   string emailFilter = 1;
   string nameFilter = 2;
   string lastNameFilter = 3;
+  string requestorRole = 4;
 }
-message ListUsersResponse { repeated User users = 1; }
+
+message ListUser {
+  string id = 1;
+  string name = 2;
+  string lastName = 3;
+  string email = 4;
+  Role role = 5;
+  string createdAt = 6;
+}
+
+message ListUsersResponse {
+  int32 status = 1;
+  repeated ListUser data = 2;
+}
 
 service Users {
-  rpc GetUser(GetUserRequest) returns (UserResponse);
-  rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
-  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
   rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
 }
